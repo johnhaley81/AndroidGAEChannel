@@ -46,7 +46,7 @@ public class ChannelAPIExample implements ChannelAPIEventListener {
   }
 
   @Override
-  public void onChannelApiOpen() {
+  public void onChannelAPIOpen() {
     // When the channel has been opened this method is called.
   }
 
