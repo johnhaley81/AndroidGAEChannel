@@ -1,0 +1,87 @@
+This project is licensed under the Apache License, Version 2.0
+
+----------------------------------
+About AndroidGAEChannel
+----------------------------------
+
+This project simplifies the channel connection process between an Android device and a Google App Engine server.
+
+A Channel connection from a GAE server requires a Javascript client so to get around this limitation in Android we load a WebView object in the background that loads a small HTML file with the necessary Javascript imbedded in it. This WebView object then allows commands to be sent to the Javascript engine loaded within the file and also allows the Javascript engine to send back messages, JSON objects, alerts and even call functions inside the Java class.
+
+This functionality is leveraged to allow all channel communication sent from the server to be received and processed by the Android device. 
+
+----------------------------------
+Getting Started
+----------------------------------
+
+After importing the ChannelAPI.java file and the com.axosoft.util package into your project you'll need 4 things:
+
+  - The path to your Google App Engine server's Javascript Channel API file. This is usually held at "_ah/channel/jsapi" (e.x. http://my-gae-server.appspot.com/_ah/channel/jsapi)
+
+  - The token that the server used to create the channel. 
+
+  - An object that listens to all of the events that occur on the channel. The ChannelAPIEventListener needs to be implemented in order for the object to listen to the events that the ChannelAPI class fires.
+
+  - An Android Context that the class will be initialized under. This is used to properly initialize the WebView object
+
+Here's a quick and dirty example of setting up the Channel:
+
+// ------ Start example code ------
+
+package com.axosoft.example.ChannelAPI;
+
+import com.axosoft.util.ChannelAPI;
+
+public class ChannelAPIExample implements ChannelAPIEventListener {
+  public static final String GAE_CHANNEL_API_JS_SOURCE = "http://my-gae-server.appspot.com/_ah/channel/jsapi";
+
+  private String mToken;
+  private ChannelAPI mChannel;
+
+  public ChannelAPIExample(Context context, String token) {
+    mToken = token;
+
+    // Take the token and the context and start the ChannelAPI.
+    mChannel = new ChannelAPI(context, GAE_CHANNEL_API_JS_SOURCE, token, this);
+  }
+
+  @Override
+  public void onChannelApiOpen() {
+    // When the channel has been opened this method is called.
+  }
+
+  @Override
+  public void onChannelAPICLosed() {
+    // When the channel is closed this method will be called. 
+    // NOTE: This method may not be called on all cases of the channel being closed (e.x. The server closes the channel
+    //       and doesn't notify the client). The only way to be sure that the channel is actually open is to ping the
+    //       the server and have a response sent back through the channel. Such functionality is outside the scope of
+    //       this project and is not covered here.
+  }
+
+  @Override
+  public void onChannelAPIUpdateEvent(String message) {
+    // This is where the bulk of the code will go. Use this event to handle all messages sent back
+    // from the server. JSON objects can be sent back as well and can be processed appropriately. 
+  }
+
+  @Override
+  public void onChannelAPIError(String code, String description) {
+    // Handle any error here.
+  }
+
+}
+
+// ------ End Example Code ------
+
+The above example shows how to initialize the channel and start recieving messages in 1 line. If you don't have the token or the ChannelAPIEventListener during the construction of the ChannelAPI event you can set those later and then call the "connect()" method to connect manually. If the "connect()" method is called before both the token and the listener is set it will not attempt a connect and will return false.
+
+----------------------------------
+Problem?
+----------------------------------
+
+If you encounter any issues with the code feel free to contact me at johnh-at-axosoft-dot-com. I'll do my best to get back to you and help you out with any issues you may have.
+
+Thanks!!
+
+-John
