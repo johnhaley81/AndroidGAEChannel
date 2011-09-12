@@ -30,7 +30,10 @@ Here's a quick and dirty example of setting up the Channel:
 
 package com.axosoft.example.ChannelAPI;
 
+import android.content.Context;
+
 import com.axosoft.util.ChannelAPI;
+import com.axosoft.util.ChannelAPI.ChannelAPIEventListener;
 
 public class ChannelAPIExample implements ChannelAPIEventListener {
   public static final String GAE_CHANNEL_API_JS_SOURCE = "http://my-gae-server.appspot.com/_ah/channel/jsapi";
@@ -51,7 +54,7 @@ public class ChannelAPIExample implements ChannelAPIEventListener {
   }
 
   @Override
-  public void onChannelAPICLosed() {
+  public void onChannelAPIClosed() {
     // When the channel is closed this method will be called. 
     // NOTE: This method may not be called on all cases of the channel being closed (e.x. The server closes the channel
     //       and doesn't notify the client). The only way to be sure that the channel is actually open is to ping the
