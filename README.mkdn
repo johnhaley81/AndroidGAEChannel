@@ -1,4 +1,3 @@
-1
 This project is licensed under the Apache License, Version 2.0
 
 About AndroidGAEChannel
@@ -79,7 +78,7 @@ The above example shows how to initialize the channel and start recieving messag
 Problem?
 --------
 
-If you encounter any issues with the code feel free to contact me at johnh-at-axosoft-dot-com. I'll do my best to get back to you and help you out with any issues you may have.
+If you encounter any issues with the code feel free to start an issue. I'll do my best to get back to you and help you out with any issues you may have.
 
 Thanks!!
 
