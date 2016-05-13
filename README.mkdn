@@ -1,7 +1,8 @@
 This project is licensed under the Apache License, Version 2.0
 
 About AndroidGAEChannel
-=======================
+======================= My changes:x
+
 
 This project simplifies the channel connection process between an Android device and a Google App Engine server.
 
